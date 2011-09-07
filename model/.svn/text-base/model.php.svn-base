@@ -1,6 +1,0 @@
-<?php
-class Model{
-	public function __construct($schema = null){
-		$this->db = new database($schema);
-	}
-}

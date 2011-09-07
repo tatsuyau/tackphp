@@ -3,9 +3,9 @@ class database{
 	public $schema = array(
 		'default' => array(
 			'host' => 'localhost',
-			'user' => 'nifuser',
-			'password' => 'nifuser',
-			'schema' => '2ch',
+			'user' => 'user',
+			'password' => 'user',
+			'schema' => 'databaseName',
 			'encoding' => 'utf8'
 			),
 		'dev' => array(
@@ -17,7 +17,6 @@ class database{
 	public $queryResult = false;
 
 	public function __construct($schemaName = "default"){
-		// TODO
 		$this->db_info = $this->schema[$schemaName];
 		$conn = mysql_connect($this->db_info['host'],$this->db_info['user'],$this->db_info['password']);
 		if($conn && mysql_select_db($this->db_info['schema'])){
@@ -27,7 +26,6 @@ class database{
 		}
 	}
 
-	/*TODO hashParamにする*/
 	public function execQuery($sql,$hashParam = null){
 		try{
 			if(!empty($hashParam)){
@@ -57,7 +55,6 @@ class database{
 		}
 	}
 
-	/*TODO エスケープこれで十分？？*/
 	private function escape($string){
 		return mysql_real_escape_string($string);
 	}
