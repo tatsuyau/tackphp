@@ -1,0 +1,12 @@
+<?php
+class TackphpController extends Controller{
+
+	public function __construct(){
+		//親クラスのコンストラクタを完全に上書きしないように呼び出し実行はしましょう。
+		parent::__construct();
+	}
+
+	public function index(){
+		var_dump( $this->tackphp->test());
+	}
+}

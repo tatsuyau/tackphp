@@ -1,0 +1,15 @@
+<form action="todo/add" method="post">
+<input type="text" name="title">
+<input type="submit" value="add">
+</form>
+
+<form action="todo" method="post">
+<input type="text" name="title">
+<input type="submit" value="search">
+</form>
+
+<?php if($list): ?>
+<?php foreach($list as $item): ?>
+<p><?php echo $item['title']; ?> <a href="todo/update?id=<?php echo $item['id']; ?>&status=1">done</a></p>
+<?php endforeach; ?>
+<?php endif; ?>
