@@ -1,7 +1,0 @@
-<?php
-class Tackphp{
-	private $controllerName;
-	private $actionName;
-
-	public function start(){
-		if($_GET['mode']
