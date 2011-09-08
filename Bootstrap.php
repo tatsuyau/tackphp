@@ -50,16 +50,6 @@ class Bootstrap{
 			$controllerInst->contents_for_layout = '../view/' . $controllerName . '_' . $actionName . EXTENSION;
 
 			if(method_exists($controllerInst,$actionName) && 0 !== strpos($actionName,'_')){
-				if(!file_exists($controllerInst->contents_for_layout)){
-					$errorBody = $controllerInst->contents_for_layout . ' file is not found.';
-					throw new Exception($errorBody);
-				}
-
-				if(!file_exists($controllerInst->layout)){
-					$errorBody = $controllerInst->layout . ' file is not found.';
-					throw new Exception($errorBody);
-				}
-
 				if($controllerInst->$actionName() === false){
 					$errorBody = $controllerName . '::' . $actionName . '() return false.';
 					throw new Exception($errorBody);
