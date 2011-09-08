@@ -19,22 +19,14 @@ class Bootstrap{
 
 		try{
 			if(isset($params[2])){
-				if(DEBUG_MODE === true){
-					$errorBody = 'tackphp error: GET[mode] params more than 2 params.';
-				}else{
-					$errorBody = ERROR404;
-				}
+				$errorBody = 'GET[mode] params more than 2 params.';
 				throw new Exception($errorBody);
 			}
 			$controller_file = '../controller/'  . ucwords($controllerName) . 'Controller.php';
 			if(file_exists($controller_file)){
 				require_once($controller_file);
 			}else{
-				if(DEBUG_MODE === true){
-					$errorBody = 'tackphp error: ' . ucwords($controllerName) . 'Controller.php is not found.';
-				}else{
-					$errorBody = ERROR404;
-				}
+				$errorBody = ucwords($controllerName) . 'Controller.php file is not found.';
 				throw new Exception($errorBody);
 			}
 
@@ -58,42 +50,42 @@ class Bootstrap{
 			$controllerInst->contents_for_layout = '../view/' . $controllerName . '_' . $actionName . EXTENSION;
 
 			if(method_exists($controllerInst,$actionName) && 0 !== strpos($actionName,'_')){
-				if($controllerInst->$actionName() === false){
-					if(DEBUG_MODE === true){
-						$errorBody = 'tackphp error: ' . $controllerName . '::' . $actionName . '() return false.';
-					}else{
-						$errorBody = ERROR404;
-					}
-					 throw new Exception($errorBody);
-				}
 				if(!file_exists($controllerInst->contents_for_layout)){
-					if(DEBUG_MODE === true){
-						$errorBody = 'tackphp error: ' . $contents_for_layout . ' is not found.';
-					}else{
-						$errorBody = ERROR404;
-					}
+					$errorBody = $controllerInst->contents_for_layout . ' file is not found.';
 					throw new Exception($errorBody);
 				}
+
 				if(!file_exists($controllerInst->layout)){
-					if(DEBUG_MODE === true){
-						$errorBody = 'tackphp error: ' . $controllerInst->layout . ' is not found.';
-					}else{
-						$errorBody = ERROR404;
-					}
+					$errorBody = $controllerInst->layout . ' file is not found.';
+					throw new Exception($errorBody);
+				}
+
+				if($controllerInst->$actionName() === false){
+					$errorBody = $controllerName . '::' . $actionName . '() return false.';
 					throw new Exception($errorBody);
 				}
 			}else{
-				if(DEBUG_MODE === true){
-					$errorBody = 'tackphp error: ' . $controllerName . '::' . $actionName . '() method is not found.';
-				}else{
-					$errorBody = ERROR404;
-				}
+				$errorBody = $controllerName . '::' . $actionName . '() method is not found.';
 				throw new Exception($errorBody);
 			}
 
 		}catch(Exception $e){
-				/*TODO エラーページ振り分け*/
-				echo $e->getMessage(); 
+			if(DEBUG_MODE === true){
+				$errorBody = 'tackphp ERROR : ' . $e->getMessage();
+			}else{
+				$errorBody = ERROR_MESSAGE;
+			}
+
+			$controllerName = ERROR_CONTROLLER;
+			$errorControllerName = ERROR_CONTROLLER . 'Controller';
+			$errorActionName = ERROR_ACTION;
+
+			require_once  '../controller/'  . ucwords($errorControllerName) . '.php';
+			$errorControllerInst = new $errorControllerName();
+
+			$errorControllerInst->layout = DEFAULT_LAYOUT;
+			$errorControllerInst->contents_for_layout = '../view/' . $controllerName . '_' . $errorActionName . EXTENSION;
+			$errorControllerInst->$errorActionName($errorBody);
 		}
 	}
 }

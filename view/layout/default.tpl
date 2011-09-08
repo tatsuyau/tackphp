@@ -12,12 +12,10 @@
 <h1><?php echo SITE_TITLE; ?></h1>
 </header>
 
+
 <article>
 <?php require_once $this->contents_for_layout; ?>
 </article>
 
 
-<footer>
-<?php echo SITE_TITLE; ?>
-</footer>
 </div><!-- #wrapper -->
