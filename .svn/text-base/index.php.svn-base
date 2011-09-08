@@ -1,0 +1,30 @@
+<?php
+
+/*
+if(!defined('ROOT')){
+	define('ROOT', dirname((dirname(__FILE__))));
+}
+
+if(!defined('CONTROLLER_DIR')){
+	define('CONTROLLER_DIR', ROOT . '/controller');
+}
+
+if(!defined('MODEL_DIR')){
+	define('MODEL_DIR', ROOT . '/model');
+}
+
+if(!defined('VIEW_DIR')){
+	define('VIEW_DIR', ROOT . '/view');
+}
+
+if(function_exists('ini_set')){
+	ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . CONTROLLER_DIR . PATH_SEPARATOR . MODEL_DIR . PATH_SEPARATOR . VIEW_DIR);
+}
+*/
+
+echo "a";
+require_once('./config.php');
+
+require_once('./Bootstrap.php');
+$bootstrap = new Bootstrap();
+$bootstrap->dispatch();
