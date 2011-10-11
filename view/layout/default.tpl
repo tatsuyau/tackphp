@@ -12,18 +12,9 @@
 
 </head>
 <body>
-<div class="topbar">
-	<div class="topbar-inner">
-		<div class="container">
-			<a class="brand" href="./">tackphp</a>
-			<ul class="nav">
-				<li><a href="./">HOME</a></li>
-				<li><a href="http://tackphp.jp">OFFICAL</a></li>
-				<li><a href="sample">SAMPLE</a></li>
-			</ul>
-		</div>
-	</div>
-</div>
+
+<?php require_once '../view/layout/header.tpl'; ?>
+
 <header>
 	<div class="inner">
 		<div class="container">

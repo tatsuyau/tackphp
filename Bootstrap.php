@@ -56,17 +56,17 @@ class Bootstrap{
 			}
 			if(method_exists($controllerInst,$actionName) && 0 !== strpos($actionName,'_')){
 				if($controllerInst->$actionName() === false){
-					$errorBody = $controllerName . '::' . $actionName . '() return false.';
+					$errorBody = ucwords($controllerName) . '::' . $actionName . '() return false.';
 					throw new Exception($errorBody);
 				}
 			}else{
-				$errorBody = $controllerName . '::' . $actionName . '() method is not found.';
+				$errorBody = ucwords($controllerName) . '::' . $actionName . '() method is not found.';
 				throw new Exception($errorBody);
 			}
 
 		}catch(Exception $e){
 			if(DEBUG_MODE === true){
-				$errorBody = $e->getMessage();
+				$errorBody = '<strong>tackphp ERROR!</strong>' . $e->getMessage();
 			}else{
 				$errorBody = ERROR_MESSAGE;
 			}
