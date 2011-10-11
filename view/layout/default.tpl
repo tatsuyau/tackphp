@@ -1,21 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<title><?php echo SITE_TITLE; ?> | <?php echo $this->controllerName; ?>::<?php echo $this->actionName; ?></title>
-<link rel='stylesheet' href='/css/style.css' />
+<meta charset="utf-8">
+<title><?php echo SITE_TITLE; ?></title>
+<meta name="description" content="">
+
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script> 
-<script type="text/javascript" src="./js/client.js"></script> 
+<script type="text/javascript" src="<?php echo WEBROOT; ?>/js/client.js"></script> 
+<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo WEBROOT; ?>/css/style.css">
+
 </head>
 <body>
-<div id="wrapper">
+<div class="topbar">
+	<div class="topbar-inner">
+		<div class="container">
+			<a class="brand" href="./">tackphp</a>
+			<ul class="nav">
+				<li><a href="./">HOME</a></li>
+				<li><a href="http://tackphp.jp">OFFICAL</a></li>
+				<li><a href="sample">SAMPLE</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
 <header>
-<h1><?php echo SITE_TITLE; ?></h1>
+	<div class="inner">
+		<div class="container">
+			<h1><?php echo SITE_TITLE; ?></h1>
+		</div>
+	</div>
 </header>
 
 
 <article>
-<?php require_once $this->contents_for_layout; ?>
+<div class="container">
+	<?php require_once $this->contents_for_layout; ?>
+</div>
 </article>
 
-
-</div><!-- #wrapper -->
+<footer>
+	<div class="container">
+	<p>tackphp was developed by tatsuya uehara.<br />
+	<a href="http://tackphp.jp/">tackphp official site</a>
+	</div>
+</footer>
+</body>
+</html>

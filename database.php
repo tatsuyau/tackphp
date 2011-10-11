@@ -3,9 +3,9 @@ class database{
 	public $schema = array(
 		'default' => array(
 			'host' => 'localhost',
-			'user' => 'user',
-			'password' => 'user',
-			'schema' => 'databaseName',
+			'user' => 'nifuser',
+			'password' => 'nifuser',
+			'schema' => '2ch',
 			'encoding' => 'utf8'
 			),
 		'dev' => array(
@@ -18,7 +18,7 @@ class database{
 
 	public function __construct($schemaName = "default"){
 		$this->db_info = $this->schema[$schemaName];
-		$conn = mysql_connect($this->db_info['host'],$this->db_info['user'],$this->db_info['password']);
+		$conn = @mysql_connect($this->db_info['host'],$this->db_info['user'],$this->db_info['password']);
 		if($conn && mysql_select_db($this->db_info['schema'])){
 			if(mysql_query('SET NAMES ' . $this->db_info['encoding']) !== false){
 				$this->isConnect = true;

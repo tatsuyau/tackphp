@@ -49,6 +49,11 @@ class Bootstrap{
 
 			$controllerInst->contents_for_layout = '../view/' . $controllerName . '_' . $actionName . EXTENSION;
 
+			$database = new database();
+			if(!$database->isConnect){
+				$errorBody = 'MySQL connect error.please set up database.php ';
+				throw new Exception($errorBody);
+			}
 			if(method_exists($controllerInst,$actionName) && 0 !== strpos($actionName,'_')){
 				if($controllerInst->$actionName() === false){
 					$errorBody = $controllerName . '::' . $actionName . '() return false.';
@@ -61,7 +66,7 @@ class Bootstrap{
 
 		}catch(Exception $e){
 			if(DEBUG_MODE === true){
-				$errorBody = 'tackphp ERROR : ' . $e->getMessage();
+				$errorBody = $e->getMessage();
 			}else{
 				$errorBody = ERROR_MESSAGE;
 			}

@@ -11,7 +11,7 @@ require_once('../controller/Controller.php');
 require_once('../model/Model.php');
 
 /*ROOT PATH*/
-define('ROOT',dirname(dirname(__FILE__)));
+define('WEBROOT',dirname($_SERVER['SCRIPT_NAME']));
 
 /*mode autoload*/
 function __autoload($modelName){

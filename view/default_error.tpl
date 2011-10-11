@@ -1,1 +1,3 @@
-<h3 style="color:red"><?php echo $errorBody; ?></h3>
+<div class="alert-message error">
+        <p><strong>tackphp Error!</strong> <?php echo $errorBody; ?></p>
+</div>
