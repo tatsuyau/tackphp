@@ -4,7 +4,7 @@ class database{
 		'default' => array(
 			'host' => 'localhost',
 			'user' => 'user',
-			'password' => 'user',
+			'password' => 'password',
 			'schema' => 'databasename',
 			'encoding' => 'utf8'
 			),
@@ -65,7 +65,7 @@ class database{
 			return false;
 		}
 
-		$data = mysql_fetch_array($this->queryResult);
+		$data = mysql_fetch_array($this->queryResult,MYSQL_ASSOC);
 		return $data;
 	}
 		
@@ -74,7 +74,7 @@ class database{
 		if(!$this->queryResult){
 			return false;
 		}
-		while($row = mysql_fetch_array($this->queryResult)){
+		while($row = mysql_fetch_array($this->queryResult,MYSQL_ASSOC)){
 			$data[] = $row;
 		}
 		return $data;
