@@ -1,6 +1,7 @@
 <?php
 class database{
-	public $schema = array(
+	public $isConnect = false;
+	private $schema = array(
 		'default' => array(
 			'host' => 'localhost',
 			'user' => 'user',
@@ -12,9 +13,8 @@ class database{
 			),
 		);
 
-	public $db_info = array();
-	public $isConnect = false;
-	public $queryResult = false;
+	private $db_info = array();
+	private $queryResult = false;
 
 	public function __construct($schemaName = "default"){
 		$this->db_info = $this->schema[$schemaName];
