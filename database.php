@@ -3,9 +3,9 @@ class database{
 	public $schema = array(
 		'default' => array(
 			'host' => 'localhost',
-			'user' => 'nifuser',
-			'password' => 'nifuser',
-			'schema' => '2ch',
+			'user' => 'user',
+			'password' => 'password',
+			'schema' => 'database',
 			'encoding' => 'utf8'
 			),
 		'dev' => array(
