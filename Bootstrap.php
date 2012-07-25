@@ -49,10 +49,12 @@ class Bootstrap{
 
 			$controllerInst->contents_for_layout = '../view/' . $controllerName . '_' . $actionName . EXTENSION;
 
-			$database = new database();
-			if(!$database->isConnect){
-				$errorBody = 'MySQL connect error.please set up database.php ';
-				throw new Exception($errorBody);
+			if(defined('USE_DATABASE') && USE_DATABASE){
+				$database = new database();
+				if(!$database->isConnect){
+					$errorBody = 'MySQL connect error.please set up database.php ';
+					throw new Exception($errorBody);
+				}
 			}
 			if(method_exists($controllerInst,$actionName) && 0 !== strpos($actionName,'_')){
 				if($controllerInst->$actionName() === false){

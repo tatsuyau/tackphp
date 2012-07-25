@@ -15,7 +15,14 @@ define('WEBROOT',dirname($_SERVER['SCRIPT_NAME']));
 
 /*mode autoload*/
 function __autoload($modelName){
-	require_once('../model/' . ucwords($modelName) . '.php');
+	$model_exists	= file_exists('../model/' . ucwords($modelName) . '.php');
+	if($model_exists){
+		require_once('../model/' . ucwords($modelName) . '.php');
+	}
+	$libs_exists	= file_exists('../libs/' . ucwords($modelName) . '.php');
+	if($libs_exists){
+		require_once('../libs/' . ucwords($modelName) . '.php');
+	}
 }
 
 /*start enjoy tackphp!*/

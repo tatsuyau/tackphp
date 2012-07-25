@@ -1,7 +1,8 @@
 <?php
 
 /*true = debugMode, false = realMode*/
-define('DEBUG_MODE', true);
+define('DEBUG_MODE'	,true);
+define('USE_DATABASE'	,false);
 
 /*404エラーメッセージ : DEBUG_MODE != true の際に表示されます*/
 define('ERROR_MESSAGE', 'ページが見つかりませんでした。');
