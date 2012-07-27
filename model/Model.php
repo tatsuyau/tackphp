@@ -5,9 +5,6 @@ class Model{
         public function __construct(){
                 $this->db = new database();
         }
-        public function __construct(){
-                $this->db = new database();
-        }
 
         //条件に合致したレコードを複数取得
         public function getList($params=null){
