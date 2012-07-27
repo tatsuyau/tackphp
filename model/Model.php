@@ -2,7 +2,8 @@
 class Model{
         protected $db;
 	protected $name = 'model';
-        public function __construct(){
+        
+	public function __construct(){
                 $this->db = new database();
         }
 
