@@ -4,7 +4,7 @@ class Bootstrap{
 	private $actionName;
 
 	public function dispatch(){
-		if(!isset($_GET['mode'])){
+		if(empty($_GET['mode'])){
 			$controllerName = DEFAULT_CONTROLLER;
 			$actionName = DEFAULT_ACTION;
 		}else{
