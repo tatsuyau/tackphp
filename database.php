@@ -36,6 +36,9 @@ class database{
 					if(is_string($value)){
 						$value = "'" . $this->escape($value) . "'";
 					}
+					if(is_null($value)){
+						$value = "NULL";
+					}
 					$sql = preg_replace("/:({$key})/",$value,$sql);
 				}
 			}
