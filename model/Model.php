@@ -27,14 +27,14 @@ class Model{
 
         //レコードを1件追加
         public function addData($params){
-		$params	= $this->_joinParamDatetimes($params);
+		$params	= $this->_joinParamDatetimesInsert($params);
                 $sql    = $this->_createInsertSql($params);
                 return $this->db->execQuery($sql,$params);
         }
 
         //レコードを更新
         public function setData($updates,$conditions){
-		$params	= $this->_joinParamDatetimes($params);
+		$updates= $this->_joinParamDatetimesUpdate($updates);
                 $sql    = $this->_createUpdateSql($updates,$conditions);
                 $params = $updates + $conditions;
                 return $this->db->execQuery($sql,$params);
@@ -106,11 +106,16 @@ class Model{
                 return $table_name;
         }
 
-	protected function _joinParamDatetimes($params){
+	protected function _joinParamDatetimesInsert($params){
 		if($this->created)	$params[$this->created]	= $this->_setAutoTime();
 		if($this->modified)	$params[$this->modified]= $this->_setAutoTime();
 		return $params;
 	}
+	protected function _joinParamDatetimesUpdate($params){
+		if($this->modified)	$params[$this->modified]= $this->_setAutoTime();
+		return $params;
+	}
+
 	protected function _setAutoTime(){
 		return date('Y-m-d H:i:s');
 	}
