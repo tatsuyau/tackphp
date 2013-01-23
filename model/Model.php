@@ -2,8 +2,8 @@
 class Model{
         protected $db;
 
-	protected $created  = 'created';
-	protected $modified = 'modified';
+	protected $created  = null;	// 'created'
+	protected $modified = null;	// 'modified'
        
 	public function __construct(){
                 $this->db = new database();
@@ -27,12 +27,14 @@ class Model{
 
         //レコードを1件追加
         public function addData($params){
+		$params	= $this->_joinParamDatetimes($params);
                 $sql    = $this->_createInsertSql($params);
                 return $this->db->execQuery($sql,$params);
         }
 
         //レコードを更新
         public function setData($updates,$conditions){
+		$params	= $this->_joinParamDatetimes($params);
                 $sql    = $this->_createUpdateSql($updates,$conditions);
                 $params = $updates + $conditions;
                 return $this->db->execQuery($sql,$params);
@@ -60,8 +62,6 @@ class Model{
                 $sql    = 'INSERT INTO ' . $this->_getTableName() . ' ';
                 $sql    .= ' ( ';
                 $i      = 0;
-		if($this->created)	$params[$this->created]	= date('Y-m-d H:i:s');
-		if($this->modified)	$params[$this->modified]= date('Y-m-d H:i:s');
                 foreach($params as $key => $val){
                         if($i){
                                 $sql    .= ' , ';
@@ -106,10 +106,17 @@ class Model{
                 return $table_name;
         }
 
+	protected function _joinParamDatetimes($params){
+		if($this->created)	$params[$this->created]	= $this->_setAutoTime();
+		if($this->modified)	$params[$this->modified]= $this->_setAutoTime();
+		return $params;
+	}
+	protected function _setAutoTime(){
+		return date('Y-m-d H:i:s');
+	}
         private function __createUpdates($updates){
                 $sql    = ' SET ';
                 $i      = 0;
-		if($this->modified)	$updates[$this->modified] = date('Y-m-d H:i:s');
                 foreach($updates as $key => $val){
                         if($i){
                                 $sql    .= ' , ';
