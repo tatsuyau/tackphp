@@ -28,7 +28,7 @@ class Controller{
 		$this->Model->rollback();
 	}
 	protected function redirect($url){
-		header('Loaction: ' . $url);
+		header('Location: ' . $url);
 		exit();
 	}
 }
