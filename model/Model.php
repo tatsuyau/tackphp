@@ -1,8 +1,10 @@
 <?php
 class Model{
         protected $db;
-	protected $name = 'model';
-        
+
+	protected $created  = 'created';
+	protected $modified = 'modified';
+       
 	public function __construct(){
                 $this->db = new database();
         }
@@ -55,9 +57,11 @@ class Model{
         }
 
         protected function _createInsertSql($params){
-                $sql    = 'INSERT INTO ' . $this->name . ' ';
+                $sql    = 'INSERT INTO ' . $this->_getTableName() . ' ';
                 $sql    .= ' ( ';
                 $i      = 0;
+		if($this->created)	$params[$this->created]	= date('Y-m-d H:i:s');
+		if($this->modified)	$params[$this->modified]= date('Y-m-d H:i:s');
                 foreach($params as $key => $val){
                         if($i){
                                 $sql    .= ' , ';
@@ -79,20 +83,33 @@ class Model{
         }
 
         protected function _createUpdateSql($updates,$conditions){
-                $sql    = 'UPDATE ' . $this->name .  ' ';
+                $sql    = 'UPDATE ' . $this->_getTableName() .  ' ';
                 $sql    .= $this->__createUpdates($updates);
                 $sql    .= $this->__createConditions($conditions);
                 return $sql;
         }
         protected function _createSelectSql($params){
-                $sql    = 'SELECT * FROM ' . $this->name . ' ';
+                $sql    = 'SELECT * FROM ' . $this->_getTableName() . ' ';
                 $sql    .= $this->__createConditions($params);
                 return $sql;
+        }
+
+        protected function _getTableName(){
+                if(!empty($this->name)) return $this->name;
+                $table_name     = '';
+                $class_name     = get_class($this);
+                preg_match_all("/[A-Z][a-z]+/",$class_name,$matches_list);
+                foreach($matches_list[0] as $key => $val){
+                        if($key)        $table_name .= '_';
+                        $table_name     .= strtolower($val);
+                }
+                return $table_name;
         }
 
         private function __createUpdates($updates){
                 $sql    = ' SET ';
                 $i      = 0;
+		if($this->modified)	$updates[$this->modified] = date('Y-m-d H:i:s');
                 foreach($updates as $key => $val){
                         if($i){
                                 $sql    .= ' , ';
