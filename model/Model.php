@@ -1,9 +1,10 @@
 <?php
 class Model{
         protected $db;
+	protected $is_transaction = false;
 
-	protected $created  = null;	// 'created'
-	protected $modified = null;	// 'modified'
+	protected $created  = 'created';
+	protected $modified = 'modified';
        
 	public function __construct(){
                 $this->db = new database();
@@ -40,23 +41,39 @@ class Model{
                 return $this->db->execQuery($sql,$params);
         }
 
+	public function getLastInsertId(){
+		$sql	= 'SELECT last_insert_id() as id ';
+		$this->db->execQuery($sql);
+		$res	= $this->db->fetch();
+		return $res ? $res['id'] : null;
+	}
         public function beginTransaction(){
                 $sql = 'SET AUTOCOMMIT = 0 ';
                 $this->db->execQuery($sql);
 
                 $sql = 'BEGIN ';
-                $this->db->execQuery($sql);
+                $res = $this->db->execQuery($sql);
+		if($res)	$this->is_transaction = true;
+		return true;
         }
 
         public function commit(){
                 $sql = 'COMMIT ';
-                $this->db->execQuery($sql);
+                $res = $this->db->execQuery($sql);
+		if($res)	$this->is_transaction = false;
+		return true;
         }
 
         public function rollback(){
                 $sql = 'ROLLBACK ';
-                $this->db->execQuery($sql);
+                $res = $this->db->execQuery($sql);
+		if($res)	$this->is_transaction = false;
+		return true;
         }
+
+	public function isTransaction(){
+		return $this->is_transaction();
+	}
 
         protected function _createInsertSql($params){
                 $sql    = 'INSERT INTO ' . $this->_getTableName() . ' ';
